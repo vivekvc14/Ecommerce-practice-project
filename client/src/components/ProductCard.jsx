@@ -18,7 +18,7 @@ import { Link as ReactLink } from "react-router-dom";
 import { StarIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
-const Rating = ({ rating, numReviews }) => {
+const Rating = ({ rating, numberOfReviews }) => {
   const [iconSize, setIconSize] = useState("14px");
   return (
     <Flex>
@@ -26,31 +26,31 @@ const Rating = ({ rating, numReviews }) => {
         <StarIcon
           bgSize={iconSize}
           w="14px"
-          color={numReviews >= 1 ? "orange.500" : "gray.200"}
+          color={rating >= 1 ? "orange.500" : "gray.200"}
         />
         <StarIcon
           bgSize={iconSize}
           w="14px"
-          color={numReviews >= 2 ? "orange.500" : "gray.200"}
+          color={rating >= 2 ? "orange.500" : "gray.200"}
         />
         <StarIcon
           bgSize={iconSize}
           w="14px"
-          color={numReviews >= 3 ? "orange.500" : "gray.200"}
+          color={rating >= 3 ? "orange.500" : "gray.200"}
         />
         <StarIcon
           bgSize={iconSize}
           w="14px"
-          color={numReviews >= 4 ? "orange.500" : "gray.200"}
+          color={rating >= 4 ? "orange.500" : "gray.200"}
         />
         <StarIcon
           bgSize={iconSize}
           w="14px"
-          color={numReviews >= 5 ? "orange.500" : "gray.200"}
+          color={rating >= 5 ? "orange.500" : "gray.200"}
         />
 
         <Text fontSize={"md"} fontWeight={"bold"} ml={"4px"}>
-          {`${numReviews} ${numReviews === 1 ? "Review" : "Reviews"}`}
+          {`${numberOfReviews} ${numberOfReviews === 1 ? "Review" : "Reviews"}`}
         </Text>
       </HStack>
     </Flex>
@@ -69,7 +69,7 @@ const ProductCard = ({ product }) => {
       borderWidth={"1px"}
       position={"relative"}
     >
-      {product.isNew && (
+      {product.productIsNew && (
         <Circle
           top={2}
           right={2}
@@ -98,7 +98,7 @@ const ProductCard = ({ product }) => {
           </Badge>
         )}
 
-        {product.isNew && (
+        {product.productIsNew && (
           <Badge colorScheme="green" px={2} rounded={"full"} fontSize={".8rem"}>
             New
           </Badge>
@@ -118,7 +118,10 @@ const ProductCard = ({ product }) => {
         </Link>
       </Flex>
       <Flex alignContent="center" justifyContent="space-between" py="2">
-        <Rating rating={product.rating} numReviews={product.numReviews} />
+        <Rating
+          rating={product.rating}
+          numberOfReviews={product.numberOfReviews}
+        />
       </Flex>
       <Flex justifyContent={"space-between"}>
         <Box color={useColorModeValue("gray.800", "white")} fontSize={"2xl"}>
