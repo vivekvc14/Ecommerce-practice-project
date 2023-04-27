@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const calculateSubTotal = (cart) => {
     let total = 0;
-    cart.map(item => {
+    cart.map(item =>
         total += item.price * item.qty
-    })
+    )
     return total;
 }
 

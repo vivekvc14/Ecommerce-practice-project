@@ -53,11 +53,11 @@ const CartItem = ({ item }) => {
             dispatch(addCartItem(id, e.target.value));
           }}
         >
-          {[...Array(stock).keys()].map((item) => {
+          {[...Array(stock).keys()].map((item) => 
             <option key={item + 1} value={item + 1}>
               {item + 1}
-            </option>;
-          })}
+            </option>
+          )}
         </Select>
         <Text fontWeight={"bold"}>${price}</Text>
         <CloseButton onClick={() => dispatch(removeCartItem(id))} />
