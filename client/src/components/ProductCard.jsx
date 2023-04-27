@@ -12,11 +12,14 @@ import {
   HStack,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link as ReactLink } from "react-router-dom";
 import { StarIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem } from "../redux/actions/cartActions";
 
 const Rating = ({ rating, numberOfReviews }) => {
   const [iconSize, setIconSize] = useState("14px");
@@ -56,7 +59,31 @@ const Rating = ({ rating, numberOfReviews }) => {
     </Flex>
   );
 };
+
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const { cart } = useSelector((state) => state.cart);
+
+  const addItem = (id) => {
+    if (cart.find((item) => item.id === id)) {
+      toast({
+        description:
+          "This item is already in your cart. Go to cart to change the amount.",
+        status: "warning",
+        isClosable: true,
+      });
+    } else {
+      dispatch(addCartItem(id, 1));
+      toast({
+        description: "Item has been added to your cart",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <Stack
       spacing={"3px"}
@@ -142,6 +169,7 @@ const ProductCard = ({ product }) => {
             variant={"ghost"}
             display={"flex"}
             disabled={product.stock <= 0}
+            onClick={addItem.bind(null, product._id)}
           >
             <Icon h={7} w={7} alignSelf={"center"} as={FiShoppingCart}></Icon>
           </Button>
