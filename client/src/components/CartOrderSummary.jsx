@@ -39,11 +39,11 @@ const CartOrderSummary = () => {
           </Text>
           <Text fontWeight={"medium"}>
             {subTotal >= 1000 ? (
-              standardShipping
-            ) : (
               <Badge px={2} rounded="full" fontSize=".8rem" colorScheme="green">
                 Free
               </Badge>
+            ) : (
+              standardShipping
             )}
           </Text>
         </Flex>
@@ -52,7 +52,7 @@ const CartOrderSummary = () => {
             Total
           </Text>
           <Text fontSize={"lg"} fontWeight={"bold"}>
-            {subTotal >= 1000 ? +subTotal + +standardShipping : subTotal}
+            {subTotal >= 1000 ? subTotal : +subTotal + +standardShipping}
           </Text>
         </Flex>
       </Stack>
