@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     loading: false,
     error: null,
-    products: []
+    products: [],
+    product: null
 }
 
 const productsSlice = createSlice({
@@ -18,6 +19,11 @@ const productsSlice = createSlice({
             state.products = payload;
             state.error = null;
         },
+        setProduct: (state, { payload }) => {
+            state.loading = false;
+            state.product = payload;
+            state.error = null;
+        },
         setError: (state, { payload }) => {
             state.loading = false
             state.error = payload
@@ -25,6 +31,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const { setLoading, setError, setProducts } = productsSlice.actions
+export const { setLoading, setError, setProducts, setProduct } = productsSlice.actions
 export default productsSlice.reducer
 export const productSelector = (state) => state.products;

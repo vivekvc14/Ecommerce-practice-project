@@ -136,7 +136,7 @@ const ProductCard = ({ product }) => {
         <Link
           as={ReactLink}
           cursor="pointer"
-          to={`/products/${product._id}`}
+          to={`/product/${product._id}`}
           pt={2}
         >
           <Box fontWeight={"semibold"} fontSize={"2xl"} lineHeight={"tight"}>
