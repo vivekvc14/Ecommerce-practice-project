@@ -7,7 +7,7 @@ const reviewSchema = new Schema({
     comment: { type: String, require: true },
     title: { type: String, require: true },
     user: { type: Schema.Types.ObjectId, require: true, ref: "User" },
-})
+}, { timestamps: true })
 
 const productSchema = new Schema({
     name: { type: String, require: true },
@@ -21,6 +21,6 @@ const productSchema = new Schema({
     stock: { type: Number, require: true, default: 0 },
     price: { type: Number, require: true },
     productIsNew: { type: Boolean, default: false },
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("Product", productSchema)
