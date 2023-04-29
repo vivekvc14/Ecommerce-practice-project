@@ -7,7 +7,10 @@ connectToDatabase()
 app.use(express.json())
 
 const productRoutes = require("./routes/product")
+const userRoutes = require("./routes/user")
+
 app.use("/product", productRoutes)
+app.use("/user", userRoutes)
 
 const port = process.env.PORT
 
