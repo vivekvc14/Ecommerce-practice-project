@@ -11,11 +11,27 @@ import {
   IconButton,
   useColorMode,
   Icon,
+  useToast,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { HamburgerIcon, CloseIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  SunIcon,
+  MoonIcon,
+  ChevronDownIcon,
+} from "@chakra-ui/icons";
 import { GiTechnoHeart } from "react-icons/gi";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/actions/userActions";
+import { CgProfile } from "react-icons/cg";
+import { MdLocalShipping, MdLogout } from "react-icons/md";
 
 const links = [
   { linkName: "Products", path: "/products" },
@@ -38,9 +54,22 @@ const ReactLink = ({ path, children }) => (
   </Link>
 );
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const [isHovering, setIsHovering] = useState(false);
+  const { userInfo } = useSelector((state) => state.user);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    toast({
+      description: "You have been logged out successfully!",
+      status: "success",
+      isClosable: true,
+    });
+  };
+
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
@@ -82,36 +111,62 @@ const Navbar = () => {
         <Flex alignItems={"center"}>
           <NavLink>
             <Icon
+              mx={2}
               as={colorMode === "light" ? MoonIcon : SunIcon}
               alignSelf={"center"}
               onClick={() => toggleColorMode()}
             />
           </NavLink>
 
-          <Button
-            display={{ md: "inline-flex", base: "none" }}
-            as={NavLink}
-            to="/login"
-            fontSize={"sm"}
-            variant={"light"}
-            fontWeight={400}
-            py={2}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ md: "inline-flex", base: "none" }}
-            as={NavLink}
-            to="/registration"
-            fontSize={"sm"}
-            fontWeight={600}
-            m={2}
-            bg={"orange.500"}
-            _hover={{ bg: "orange.400" }}
-            color="white"
-          >
-            Sign Up
-          </Button>
+          {userInfo ? (
+            <Menu>
+              <MenuButton px={4} py={2} transition="all .3s" as={Button}>
+                {userInfo.name} <ChevronDownIcon />
+              </MenuButton>
+              <MenuList>
+                <MenuItem as={NavLink} to="/profile">
+                  <CgProfile />
+                  <Text ml={2}>Profile</Text>
+                </MenuItem>
+                <MenuItem as={NavLink} to="/your-orders">
+                  <MdLocalShipping />
+                  <Text ml={2}>Your Orders</Text>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={logoutHandler}>
+                  <MdLogout />
+                  <Text ml={2}>Logout</Text>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <>
+              <Button
+                display={{ md: "inline-flex", base: "none" }}
+                as={NavLink}
+                to="/login"
+                fontSize={"sm"}
+                variant={"light"}
+                fontWeight={400}
+                py={2}
+              >
+                Sign In
+              </Button>
+              <Button
+                display={{ md: "inline-flex", base: "none" }}
+                as={NavLink}
+                to="/registration"
+                fontSize={"sm"}
+                fontWeight={600}
+                m={2}
+                bg={"orange.500"}
+                _hover={{ bg: "orange.400" }}
+                color="white"
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Flex>
       </Flex>
 

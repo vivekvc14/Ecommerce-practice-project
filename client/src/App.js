@@ -5,6 +5,8 @@ import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
         { path: "products", element: <Products /> },
         { path: "product/:productId", element: <Product /> },
         { path: "cart", element: <Cart /> },
+        { path: "/login", element: <Login /> },
+        { path: "/registration", element: <Register /> },
       ]
     }
   ])
