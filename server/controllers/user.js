@@ -49,7 +49,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
             name: user.name,
             email: user.email,
-            token: genToken(),
+            token: genToken(user._id),
         })
 
     } catch (err) {
