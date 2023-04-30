@@ -2,6 +2,7 @@ const routes = require("express").Router()
 const { body } = require("express-validator")
 
 const userControllers = require("../controllers/user")
+const verifyToken = require("../tokens/verifyToken")
 
 routes.post("/register", [
     body("name").not().isEmpty().withMessage("Enter a name!"),
@@ -10,5 +11,7 @@ routes.post("/register", [
 ], userControllers.registerUser)
 
 routes.post("/login", userControllers.loginUser)
+
+routes.put("/profile/:userId", verifyToken, userControllers.updateUser)
 
 module.exports = routes;

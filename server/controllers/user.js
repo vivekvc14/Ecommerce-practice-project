@@ -56,3 +56,31 @@ exports.loginUser = asyncHandler(async (req, res) => {
         res.status(500).json("Something went wrong, please try again!")
     }
 })
+
+exports.updateUser = asyncHandler(async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.userId)
+        if (!user) {
+            return res.status(404).json("User doesn't exist!")
+        }
+
+        user.name = req.body.name || user.name;
+        user.name = req.body.name || user.name;
+
+        if (req.body.password) {
+            user.password = await bcrypt.hash(req.body.password, 10)
+        }
+        const updatedUser = await user.save()
+
+        return res.status(201).json({
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            createdAt: updatedUser.createdAt,
+            token: genToken(updatedUser._id),
+        })
+    } catch (err) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+})
