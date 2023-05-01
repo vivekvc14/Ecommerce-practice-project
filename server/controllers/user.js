@@ -50,6 +50,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             token: genToken(user._id),
+            createdAt: user.createdAt
         })
 
     } catch (err) {
@@ -66,14 +67,14 @@ exports.updateUser = asyncHandler(async (req, res) => {
         }
 
         user.name = req.body.name || user.name;
-        user.name = req.body.name || user.name;
-
+        user.email = req.body.email || user.email;
         if (req.body.password) {
             user.password = await bcrypt.hash(req.body.password, 10)
         }
         const updatedUser = await user.save()
 
         return res.status(201).json({
+            id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,

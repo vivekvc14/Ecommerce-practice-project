@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile, { loader as profileLoader } from "./pages/Profile";
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
         { path: "products", element: <Products /> },
         { path: "product/:productId", element: <Product /> },
         { path: "cart", element: <Cart /> },
-        { path: "/login", element: <Login /> },
-        { path: "/registration", element: <Register /> },
+        { path: "login", element: <Login /> },
+        { path: "registration", element: <Register /> },
+        { path: "profile", element: <Profile />, loader: profileLoader }
       ]
     }
   ])
