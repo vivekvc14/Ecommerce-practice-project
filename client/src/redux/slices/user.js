@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const userSlice = createSlice({
-    name: "products",
+    name: "user",
     initialState,
     reducers: {
         setLoading: state => {

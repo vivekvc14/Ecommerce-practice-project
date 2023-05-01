@@ -1,9 +1,7 @@
 import {
   Box,
   useToast,
-  Text,
   Heading,
-  HStack,
   Stack,
   FormControl,
   Alert,
@@ -18,10 +16,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TextField from "../components/TextField";
 import PasswordTextField from "../components/PasswordTextField";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import {
   updateProfile,
   resetUpdateSuccess,
@@ -35,7 +33,7 @@ const Profile = () => {
   const toast = useToast();
   const user = useSelector((state) => state.user);
   const { userInfo, error, loading, updateSuccess } = user;
-  const location = useLocation();
+  console.log(loading, "LOADING");
 
   useEffect(() => {
     if (!userInfo) {

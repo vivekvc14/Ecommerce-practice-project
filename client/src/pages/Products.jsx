@@ -22,8 +22,6 @@ const Products = () => {
     dispatch(getProducts());
   }, []);
 
-  loading && console.log("Loading...");
-
   return (
     <Wrap spacing={"30px"} minHeight={"100vh"} justify={"center"}>
       {loading ? (

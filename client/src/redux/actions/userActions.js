@@ -7,7 +7,6 @@ export const login = (email, password) => async (dispatch) => {
         dispatch(setLogin(data))
         localStorage.setItem("userInfo", JSON.stringify(data))
     } catch (error) {
-        console.log(error.response)
         dispatch(setError(
             error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
         ))
