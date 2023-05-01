@@ -32,10 +32,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/userActions";
 import { CgProfile } from "react-icons/cg";
 import { MdLocalShipping, MdLogout } from "react-icons/md";
+import { FiShoppingCart } from "react-icons/fi";
 
+const ShoppingCartIcon = () => {
+  const { cart } = useSelector((state) => state.cart);
+  return (
+    <Flex>
+      <Text as="sub" fontSize="xs">
+        {cart.length}
+      </Text>
+      <Icon ml="-1" as={FiShoppingCart} h={4} w={7} alignSelf="center" />
+      Cart
+    </Flex>
+  );
+};
 const links = [
   { linkName: "Products", path: "/products" },
-  { linkName: "Shopping Cart", path: "/cart" },
+  { linkName: <ShoppingCartIcon />, path: "/cart" },
 ];
 
 const ReactLink = ({ path, children }) => (
