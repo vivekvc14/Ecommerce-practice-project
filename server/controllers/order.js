@@ -18,3 +18,15 @@ exports.createOrder = async (req, res) => {
         return res.status(500).json("Something went wrong, please try again!")
     }
 }
+
+exports.getOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.params.userId }).populate(["user", "orderItems.product"])
+        if (!orders) {
+            return res.status(402).json("Orders not found")
+        }
+        return res.json(orders)
+    } catch (err) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+}

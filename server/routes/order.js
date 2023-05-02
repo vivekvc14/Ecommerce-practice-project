@@ -6,4 +6,6 @@ const verifyToken = require("../tokens/verifyToken");
 
 routes.post("/", verifyToken, orderControllers.createOrder)
 
+routes.get("/:userId", verifyToken, orderControllers.getOrders)
+
 module.exports = routes;
