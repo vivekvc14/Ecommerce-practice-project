@@ -1,4 +1,4 @@
-import { resetUpdate, setError, setLoading, setLogin, setLogout, setRegister, updateUserProfile } from "../slices/user";
+import { resetUpdate, setError, setLoading, setLogin, setLogout, setRegister, updateUserProfile, setUserOrders } from "../slices/user";
 import axios from "axios"
 export const login = (email, password) => async (dispatch) => {
     dispatch(setLoading(true))
@@ -50,4 +50,21 @@ export const updateProfile = (id, name, email, password) => async (dispatch) => 
 
 export const resetUpdateSuccess = () => dispatch => {
     dispatch(resetUpdate())
+}
+
+export const getUserOrders = () => async dispatch => {
+    dispatch(setLoading())
+    const user = JSON.parse(localStorage.getItem("userInfo"))
+    try {
+        const { data } = await axios.get(`/order/${user.id}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+        dispatch(setUserOrders(data))
+    } catch (error) {
+        dispatch(setError(
+            error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        ))
+    }
 }

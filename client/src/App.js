@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile, { loader as profileLoader } from "./pages/Profile";
 import Checkout from "./pages/Checkout";
+import YourOrders from "./pages/YourOrders";
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
         { path: "login", element: <Login /> },
         { path: "registration", element: <Register /> },
         { path: "profile", element: <Profile />, loader: profileLoader },
-        { path: "checkout", element: <Checkout /> }
+        { path: "checkout", element: <Checkout /> },
+        { path: "your-orders", element: <YourOrders /> }
       ]
     }
   ])
