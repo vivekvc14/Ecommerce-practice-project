@@ -2,7 +2,7 @@ const express = require("express")
 const routes = express.Router()
 
 const productControllers = require('../controllers/product')
-const verifyToken = require("../tokens/verifyToken")
+const verifyToken = require("../middleware/tokens/verifyToken")
 
 routes.get("/", productControllers.getProducts)
 

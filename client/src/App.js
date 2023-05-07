@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Profile, { loader as profileLoader } from "./pages/Profile";
 import Checkout from "./pages/Checkout";
 import YourOrders from "./pages/YourOrders";
+import AdminConsole, { loader as adminLoader } from "./pages/AdminConsole";
 
 function App() {
 
@@ -24,7 +25,8 @@ function App() {
         { path: "registration", element: <Register /> },
         { path: "profile", element: <Profile />, loader: profileLoader },
         { path: "checkout", element: <Checkout /> },
-        { path: "your-orders", element: <YourOrders /> }
+        { path: "your-orders", element: <YourOrders /> },
+        { path: "admin-console", element: <AdminConsole />, loader: adminLoader }
       ]
     }
   ])

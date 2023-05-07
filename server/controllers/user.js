@@ -2,7 +2,7 @@ const User = require("../models/User")
 const asyncHandler = require("express-async-handler")
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
-const genToken = require("../tokens/genToken")
+const genToken = require("../middleware/tokens/genToken")
 
 
 exports.registerUser = asyncHandler(async (req, res) => {
@@ -82,6 +82,24 @@ exports.updateUser = asyncHandler(async (req, res) => {
             token: genToken(updatedUser._id),
         })
     } catch (err) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+})
+
+exports.getUsers = asyncHandler(async (req, res) => {
+    try {
+        const users = await User.find()
+        return res.json(users)
+    } catch (error) {
+        return res.status(500).json("Something went wrong, please try again!")
+    }
+})
+
+exports.deleteUser = asyncHandler(async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.userId)
+        return res.json("User deleted successfully")
+    } catch (error) {
         return res.status(500).json("Something went wrong, please try again!")
     }
 })
