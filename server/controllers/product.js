@@ -51,3 +51,52 @@ exports.createReview = async (req, res) => {
         res.status(500).json("Something went wrong, please try again.")
     }
 }
+
+exports.createProduct = async (req, res) => {
+    const { brand, name, category, price, image, productIsNew, description, stock } = req.body;
+    try {
+        const product = await Product.create({
+            brand,
+            name,
+            description,
+            category,
+            price,
+            image: "/images/" + image,
+            productIsNew,
+            stock
+        })
+
+        return res.status(201).json(product)
+    } catch (error) {
+        res.status(500).json("Something went wrong, please try again.")
+    }
+}
+
+exports.deleteProduct = async (req, res) => {
+    try {
+        await Product.findByIdAndDelete(req.params.productId)
+        return res.json("Product deleted successfully!")
+    } catch (error) {
+        res.status(500).json("Something went wrong, please try again.")
+    }
+}
+
+exports.updateProduct = async (req, res) => {
+    const { brand, name, category, price, image, productIsNew, description, stock } = req.body;
+    try {
+        const product = await Product.findById(req.params.productId)
+        product.brand = brand;
+        product.name = name;
+        product.description = description;
+        product.category = category;
+        product.price = price;
+        product.image = "/images/" + image;
+        product.productIsNew = productIsNew;
+        product.stock = stock;
+
+        await product.save()
+        return res.json(product)
+    } catch (error) {
+        res.status(500).json("Something went wrong, please try again.")
+    }
+}
