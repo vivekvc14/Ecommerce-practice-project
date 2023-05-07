@@ -26,7 +26,7 @@ export const removeCartItem = (id) => async (dispatch) => {
 }
 
 export const addExpressShipping = (value) => (dispatch) => {
-    dispatch(setExpressShipping())
+    dispatch(setExpressShipping(value))
 }
 
 export const resetCart = () => (dispatch) => {
