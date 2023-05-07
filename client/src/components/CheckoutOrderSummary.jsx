@@ -50,11 +50,9 @@ const CheckoutOrderSummary = () => {
   }, [expressShipping, subTotal]);
 
   const total = useCallback(() => {
-    return Number(
-      shipping() === 0
-        ? Number(subTotal).toFixed(2)
-        : Number(subTotal) + Number(shipping()).toFixed(2)
-    );
+    return Number(shipping()) === 0
+      ? +subTotal.toFixed(2)
+      : (+subTotal + +shipping()).toFixed(2);
   }, [shipping, subTotal]);
 
   const orderItems = cart.map((item) => {
@@ -131,7 +129,7 @@ const CheckoutOrderSummary = () => {
             Total
           </Text>
           <Text fontSize="xl" fontWeight="medium">
-            ${Number(total())}
+            ${total()}
           </Text>
         </Flex>
       </Stack>
