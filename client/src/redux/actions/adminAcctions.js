@@ -1,5 +1,6 @@
 import { deleteOneUser, getAllUsers, resetError, setError, setLoading, getOrders, deleteUserOrder, setDelivered } from "../slices/admin";
 import axios from "axios"
+import { setProductUpdate, setProducts } from "../slices/products";
 
 export const getUsers = () => async (dispatch) => {
     dispatch(setLoading())
@@ -79,6 +80,63 @@ export const setOrderDelivered = (orderId) => async (dispatch) => {
             }
         })
         dispatch(setDelivered())
+    } catch (error) {
+        dispatch(setError(
+            error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        ))
+    }
+}
+
+export const createProduct = (productData) => async (dispatch) => {
+    dispatch(setLoading())
+
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    try {
+        const { data } = await axios.post(`/product`, productData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        dispatch(setProducts(data))
+        dispatch(resetError())
+        dispatch(setProductUpdate())
+    } catch (error) {
+        dispatch(setError(
+            error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        ))
+    }
+}
+
+export const updateProduct = (productData, productId) => async (dispatch, getState) => {
+    dispatch(setLoading())
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    try {
+        const { data } = await axios.put(`/product/${productId}`, productData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        dispatch(setProducts(data))
+        dispatch(resetError())
+        dispatch(setProductUpdate())
+    } catch (error) {
+        dispatch(setError(
+            error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        ))
+    }
+}
+
+export const deleteProduct = (productId) => async (dispatch) => {
+    dispatch(setLoading())
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    try {
+        await axios.delete(`/product/${productId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        dispatch(resetError())
+        dispatch(setProductUpdate())
     } catch (error) {
         dispatch(setError(
             error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
