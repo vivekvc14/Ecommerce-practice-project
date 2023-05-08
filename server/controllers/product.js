@@ -100,3 +100,28 @@ exports.updateProduct = async (req, res) => {
         res.status(500).json("Something went wrong, please try again.")
     }
 }
+
+exports.deleteReview = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.productId)
+        const updatedReviews = product.reviews.filter(review => review._id.toString() !== req.params.reviewId.toString())
+
+        if (product) {
+            product.reviews = updatedReviews
+            product.numberOfReviews = product.reviews.length;
+
+            if (product.numberOfReviews > 0) {
+                product.rating = product.reviews.reduce((item, acc) => item.rating += acc, 0) / product.reviews.length;
+            } else {
+                product.rating = 1;
+            }
+
+            await product.save()
+            return res.json("Review has been removed.")
+        } else {
+            return res.status(404).json("Produt not found.")
+        }
+    } catch (error) {
+        res.status(500).json("Something went wrong, please try again.")
+    }
+}

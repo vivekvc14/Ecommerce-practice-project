@@ -11,6 +11,8 @@ routes.get("/:productId", productControllers.getProduct)
 
 routes.post("/review/:productId", verifyToken, productControllers.createReview)
 
+routes.delete("/:productId/:reviewId", verifyToken, verifyAdmin, productControllers.deleteReview)
+
 routes.post("/", verifyToken, verifyAdmin, productControllers.createProduct)
 
 routes.delete("/:productId", verifyToken, verifyAdmin, productControllers.deleteProduct)
