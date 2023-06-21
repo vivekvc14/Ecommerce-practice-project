@@ -1,6 +1,6 @@
 import { deleteOneUser, getAllUsers, resetError, setError, setLoading, getOrders, deleteUserOrder, setDelivered } from "../slices/admin";
 import axios from "axios"
-import { setProductUpdate, setProducts } from "../slices/products";
+import { setProductUpdate, setProducts, setReviewRemovalFlag } from "../slices/products";
 
 export const getUsers = () => async (dispatch) => {
     dispatch(setLoading())
@@ -137,6 +137,23 @@ export const deleteProduct = (productId) => async (dispatch) => {
         })
         dispatch(resetError())
         dispatch(setProductUpdate())
+    } catch (error) {
+        dispatch(setError(
+            error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
+        ))
+    }
+}
+
+export const removeReview = (productId, reviewId) => async (dispatch) => {
+    dispatch(setLoading())
+    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    try {
+        await axios.delete(`/product/${productId}/${reviewId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        dispatch(setReviewRemovalFlag())
     } catch (error) {
         dispatch(setError(
             error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
