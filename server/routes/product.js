@@ -1,22 +1,39 @@
-const express = require("express")
-const routes = express.Router()
+const express = require("express");
+const routes = express.Router();
 
-const productControllers = require('../controllers/product')
-const verifyToken = require("../middleware/tokens/verifyToken")
-const verifyAdmin = require('../middleware/verifyAdmin')
+const productControllers = require("../controllers/product");
+const verifyToken = require("../middleware/tokens/verifyToken");
+const verifyAdmin = require("../middleware/verifyAdmin");
 
-routes.get("/", productControllers.getProducts)
+routes.get("/", productControllers.getProducts);
 
-routes.get("/:productId", productControllers.getProduct)
+routes.get("/reviews", productControllers.getReviews);
 
-routes.post("/review/:productId", verifyToken, productControllers.createReview)
+routes.get("/:productId", productControllers.getProduct);
 
-routes.delete("/:productId/:reviewId", verifyToken, verifyAdmin, productControllers.deleteReview)
+routes.post("/review/:productId", verifyToken, productControllers.createReview);
 
-routes.post("/", verifyToken, verifyAdmin, productControllers.createProduct)
+routes.delete(
+  "/:productId/:reviewId",
+  verifyToken,
+  verifyAdmin,
+  productControllers.deleteReview
+);
 
-routes.delete("/:productId", verifyToken, verifyAdmin, productControllers.deleteProduct)
+routes.post("/", verifyToken, verifyAdmin, productControllers.createProduct);
 
-routes.put("/:productId", verifyToken, verifyAdmin, productControllers.updateProduct)
+routes.delete(
+  "/:productId",
+  verifyToken,
+  verifyAdmin,
+  productControllers.deleteProduct
+);
+
+routes.put(
+  "/:productId",
+  verifyToken,
+  verifyAdmin,
+  productControllers.updateProduct
+);
 
 module.exports = routes;
