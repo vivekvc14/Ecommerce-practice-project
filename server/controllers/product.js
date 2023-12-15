@@ -142,7 +142,7 @@ exports.deleteReview = async (req, res) => {
           product.reviews.length;
         product.numberOfReviews -= 1;
       } else {
-        product.rating = 1;
+        product.rating = 0;
       }
 
       await product.save();
