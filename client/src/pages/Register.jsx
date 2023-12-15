@@ -20,15 +20,22 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
 import PasswordTextField from "../components/PasswordTextField";
-import { register } from "../redux/actions/userActions";
+import { register, resetUpdateSuccess } from "../redux/actions/userActions";
+import { useEffect } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
   const headingBR = useBreakpointValue({ base: "xs", md: "sm" });
   const boxBR = useBreakpointValue({ base: "transparent", md: "bg-surface" });
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error, userInfo } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const toast = useToast();
+
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(resetUpdateSuccess());
+    }
+  }, [userInfo]);
 
   return (
     <Formik

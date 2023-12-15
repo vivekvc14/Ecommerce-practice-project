@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -21,7 +21,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
 import PasswordTextField from "../components/PasswordTextField";
-import { login } from "../redux/actions/userActions";
+import { login, resetUpdateSuccess } from "../redux/actions/userActions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -46,6 +46,12 @@ const Login = () => {
       });
     }
   }, [userInfo, location, navigate, toast]);
+
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(resetUpdateSuccess());
+    }
+  }, [userInfo]);
 
   return (
     <Formik
