@@ -8,12 +8,12 @@ import {
   deleteUserOrder,
   setDelivered,
   getReviews,
+  deleteReview,
 } from "../slices/admin";
 import axios from "axios";
 import {
   setProductUpdate,
   setProducts,
-  setReviewRemovalFlag,
 } from "../slices/products";
 
 export const getUsers = () => async (dispatch) => {
@@ -220,7 +220,7 @@ export const removeReview = (productId, reviewId) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    dispatch(setReviewRemovalFlag());
+    dispatch(deleteReview(reviewId));
   } catch (error) {
     dispatch(
       setError(

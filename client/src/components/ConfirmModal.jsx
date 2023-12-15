@@ -18,7 +18,11 @@ const ConfirmModal = ({
 }) => {
   const dispatch = useDispatch();
   const onDeleteItem = () => {
-    dispatch(deleteAction(itemToDelete._id));
+    if (itemToDelete.rating) {
+      dispatch(deleteAction(itemToDelete.productId, itemToDelete._id));
+    } else {
+      dispatch(deleteAction(itemToDelete._id));
+    }
     onClose();
   };
   return (
@@ -30,7 +34,7 @@ const ConfirmModal = ({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete {itemToDelete.name}
+            Delete {itemToDelete.rating ? "Review" : itemToDelete.name}
           </AlertDialogHeader>
           <AlertDialogBody>
             Are you sure? You can't undo this action afterwards.
@@ -40,7 +44,7 @@ const ConfirmModal = ({
               Cancel
             </Button>
             <Button colorScheme="red" onClick={onDeleteItem} ml={3}>
-              Delete {itemToDelete.name}
+              Delete {itemToDelete.rating ? "Review" : itemToDelete.name}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

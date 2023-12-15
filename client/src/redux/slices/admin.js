@@ -55,13 +55,20 @@ const adminSlice = createSlice({
         pAndR.reviews.forEach((review) => {
           if (review._id) {
             state.reviewList.push({
-              id: pAndR._id,
+              productId: pAndR._id,
               productName: pAndR.name,
               ...review,
             });
           }
         });
       });
+    },
+    deleteReview: (state, { payload }) => {
+      state.loading = false;
+      state.reviewList = state.reviewList.filter(
+        (review) => review._id !== payload
+      );
+      state.error = null;
     },
     resetError: (state) => {
       state.loading = false;
@@ -83,6 +90,7 @@ export const {
   deleteUserOrder,
   setDelivered,
   getReviews,
+  deleteReview,
 } = adminSlice.actions;
 export default adminSlice.reducer;
 export const adminSelector = (state) => state.admin;

@@ -26,7 +26,7 @@ import {
   Spacer,
   Textarea,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getReviewsAction, removeReview } from "../redux/actions/adminAcctions";
 import {
@@ -34,12 +34,15 @@ import {
   resetProductError,
 } from "../redux/actions/productsActions";
 import ConfirmModal from "./ConfirmModal";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const ReviewsTab = () => {
   const dispatch = useDispatch();
   const { loading, error, reviewList } = useSelector((state) => state.admin);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   // const { productRemoval, products } = useSelector((state) => state.products);
-
+  const [reviewToDelete, setReviewToDelete] = useState("");
+  const cancelRef = useRef();
   const toast = useToast();
 
   useEffect(() => {
@@ -61,6 +64,11 @@ const ReviewsTab = () => {
   // const onReviewRemove = (productId, reviewId) => {
   //   dispatch(removeReview(productId, reviewId));
   // };
+
+  const openDeleteConfirmBox = (review) => {
+    setReviewToDelete(review);
+    onOpen();
+  };
 
   return loading ? (
     <Wrap justify="center">
@@ -93,6 +101,7 @@ const ReviewsTab = () => {
               <Th>Review Title</Th>
               <Th>Review Description</Th>
               <Th>Review Date</Th>
+              <Th>Action</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -105,18 +114,27 @@ const ReviewsTab = () => {
                   <Td>{review.title ? review.title : "No Title"}</Td>
                   <Td>{review.comment}</Td>
                   <Td>{new Date(review.createdAt).toDateString()}</Td>
+                  <Td>
+                    <Button
+                      variant="outline"
+                      onClick={() => openDeleteConfirmBox(review)}
+                    >
+                      <DeleteIcon />
+                      Remove Review
+                    </Button>
+                  </Td>
                 </Tr>
               ))}
           </Tbody>
         </Table>
       </TableContainer>
-      {/* <ConfirmModal
+      <ConfirmModal
         isOpen={isOpen}
         onClose={onClose}
         cancelRef={cancelRef}
-        itemToDelete={orderToDelete}
-        deleteAction={deleteOrder}
-      /> */}
+        itemToDelete={reviewToDelete}
+        deleteAction={removeReview}
+      />
     </Box>
   );
 };

@@ -140,6 +140,7 @@ exports.deleteReview = async (req, res) => {
         product.rating =
           product.reviews.reduce((item, acc) => (item.rating += acc), 0) /
           product.reviews.length;
+        product.numberOfReviews -= 1;
       } else {
         product.rating = 1;
       }
