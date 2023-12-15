@@ -49,7 +49,19 @@ const adminSlice = createSlice({
     },
     getReviews: (state, { payload }) => {
       state.loading = false;
-      state.reviewList = payload;
+      state.reviewList = [];
+      // reviews = [];
+      payload.forEach((pAndR) => {
+        pAndR.reviews.forEach((review) => {
+          if (review._id) {
+            state.reviewList.push({
+              id: pAndR._id,
+              productName: pAndR.name,
+              ...review,
+            });
+          }
+        });
+      });
     },
     resetError: (state) => {
       state.loading = false;

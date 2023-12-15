@@ -243,7 +243,6 @@ export const getReviewsAction = () => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("Data:-", data);
     dispatch(getReviews(data));
   } catch (error) {
     dispatch(

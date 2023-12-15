@@ -96,57 +96,17 @@ const ReviewsTab = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {/* {orders &&
-              orders.map((order) => (
-                <Tr key={order._id}>
-                  <Td>{new Date(order.createdAt).toDateString()}</Td>
-                  <Td>{order.user.name}</Td>
-                  <Td>{order.user.email}</Td>
-                  <Td>
-                    <Text>
-                      <i>Address:</i> {order.shippingDetails.address}
-                    </Text>
-                    <Text>
-                      <i>City:</i> {order.shippingDetails.city}
-                    </Text>
-                    <Text>
-                      <i>Country:</i> {order.shippingDetails.country}
-                    </Text>
-                  </Td>
-                  <Td>
-                    {order.orderItems.map((item) => (
-                      <Text>
-                        {item.qty} x {item.product.name}
-                      </Text>
-                    ))}
-                  </Td>
-                  <Td>{order.paymentMethod}</Td>
-                  <Td>${order.shippingPrice}</Td>
-                  <Td>${order.totalPrice}</Td>
-                  <Td>{order.isDelivered ? <CheckCircleIcon /> : "Pending"}</Td>
-                  <Td>
-                    <Flex direction="column">
-                      <Button
-                        variant="outline"
-                        onClick={() => openDeleteConfirmBox(order)}
-                      >
-                        <DeleteIcon mr="5px" />
-                        Remove Order
-                      </Button>
-                      {!order.isDelivered && (
-                        <Button
-                          variant="outline"
-                          mt="4px"
-                          onClick={() => onSetToDelivered(order)}
-                        >
-                          <TbTruckDelivery />
-                          <Text ml="4px">Delivered</Text>
-                        </Button>
-                      )}
-                    </Flex>
-                  </Td>
+            {reviewList &&
+              reviewList.map((review) => (
+                <Tr key={review._id}>
+                  <Td>{review.name}</Td>
+                  <Td>{review.productName}</Td>
+                  <Td>{review.rating}</Td>
+                  <Td>{review.title ? review.title : "No Title"}</Td>
+                  <Td>{review.comment}</Td>
+                  <Td>{new Date(review.createdAt).toDateString()}</Td>
                 </Tr>
-              ))} */}
+              ))}
           </Tbody>
         </Table>
       </TableContainer>
