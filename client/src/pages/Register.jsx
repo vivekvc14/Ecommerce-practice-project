@@ -35,6 +35,9 @@ const Register = () => {
     if (!userInfo) {
       dispatch(resetUpdateSuccess());
     }
+    if (userInfo) {
+      navigate("/");
+    }
   }, [userInfo]);
 
   return (
