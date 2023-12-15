@@ -33,11 +33,12 @@ import {
   getProducts,
   resetProductError,
 } from "../redux/actions/productsActions";
+import ConfirmModal from "./ConfirmModal";
 
 const ReviewsTab = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.admin);
-  const { productRemoval, products } = useSelector((state) => state.products);
+  const { loading, error, reviewList } = useSelector((state) => state.admin);
+  // const { productRemoval, products } = useSelector((state) => state.products);
 
   const toast = useToast();
 
@@ -81,7 +82,82 @@ const ReviewsTab = () => {
       <AlertDescription>{error}</AlertDescription>
     </Alert>
   ) : (
-    <Box></Box>
+    <Box>
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Reviewer</Th>
+              <Th>Product Name</Th>
+              <Th>Rating</Th>
+              <Th>Review Title</Th>
+              <Th>Review Description</Th>
+              <Th>Review Date</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {/* {orders &&
+              orders.map((order) => (
+                <Tr key={order._id}>
+                  <Td>{new Date(order.createdAt).toDateString()}</Td>
+                  <Td>{order.user.name}</Td>
+                  <Td>{order.user.email}</Td>
+                  <Td>
+                    <Text>
+                      <i>Address:</i> {order.shippingDetails.address}
+                    </Text>
+                    <Text>
+                      <i>City:</i> {order.shippingDetails.city}
+                    </Text>
+                    <Text>
+                      <i>Country:</i> {order.shippingDetails.country}
+                    </Text>
+                  </Td>
+                  <Td>
+                    {order.orderItems.map((item) => (
+                      <Text>
+                        {item.qty} x {item.product.name}
+                      </Text>
+                    ))}
+                  </Td>
+                  <Td>{order.paymentMethod}</Td>
+                  <Td>${order.shippingPrice}</Td>
+                  <Td>${order.totalPrice}</Td>
+                  <Td>{order.isDelivered ? <CheckCircleIcon /> : "Pending"}</Td>
+                  <Td>
+                    <Flex direction="column">
+                      <Button
+                        variant="outline"
+                        onClick={() => openDeleteConfirmBox(order)}
+                      >
+                        <DeleteIcon mr="5px" />
+                        Remove Order
+                      </Button>
+                      {!order.isDelivered && (
+                        <Button
+                          variant="outline"
+                          mt="4px"
+                          onClick={() => onSetToDelivered(order)}
+                        >
+                          <TbTruckDelivery />
+                          <Text ml="4px">Delivered</Text>
+                        </Button>
+                      )}
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))} */}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      {/* <ConfirmModal
+        isOpen={isOpen}
+        onClose={onClose}
+        cancelRef={cancelRef}
+        itemToDelete={orderToDelete}
+        deleteAction={deleteOrder}
+      /> */}
+    </Box>
   );
 };
 

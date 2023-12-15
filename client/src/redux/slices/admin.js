@@ -48,6 +48,7 @@ const adminSlice = createSlice({
       state.orderDelivered = true;
     },
     getReviews: (state, { payload }) => {
+      state.loading = false;
       state.reviewList = payload;
     },
     resetError: (state) => {
