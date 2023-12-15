@@ -26,9 +26,9 @@ import {
   Spacer,
   Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeReview } from "../redux/actions/adminAcctions";
+import { getReviewsAction, removeReview } from "../redux/actions/adminAcctions";
 import {
   getProducts,
   resetProductError,
@@ -40,6 +40,10 @@ const ReviewsTab = () => {
   const { productRemoval, products } = useSelector((state) => state.products);
 
   const toast = useToast();
+
+  useEffect(() => {
+    dispatch(getReviewsAction());
+  }, []);
 
   // useEffect(() => {
   //   dispatch(getProducts());
