@@ -37,25 +37,25 @@ import {
 const ReviewsTab = () => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.admin);
-  const { productRemoval, products } = useSelector((state) => state.proucts);
+  const { productRemoval, products } = useSelector((state) => state.products);
 
   const toast = useToast();
 
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(resetProductError());
-    if (productRemoval) {
-      toast({
-        description: "Review has been removed.",
-        status: "success",
-        isClosable: true,
-      });
-    }
-  }, [dispatch, toast, productRemoval]);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  //   dispatch(resetProductError());
+  //   if (productRemoval) {
+  //     toast({
+  //       description: "Review has been removed.",
+  //       status: "success",
+  //       isClosable: true,
+  //     });
+  //   }
+  // }, [dispatch, toast, productRemoval]);
 
-  onReviewRemove = (productId, reviewId) => {
-    dispatch(removeReview(productId, reviewId));
-  };
+  // const onReviewRemove = (productId, reviewId) => {
+  //   dispatch(removeReview(productId, reviewId));
+  // };
 
   return loading ? (
     <Wrap justify="center">

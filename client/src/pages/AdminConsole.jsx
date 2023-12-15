@@ -13,6 +13,7 @@ import { Navigate, redirect } from "react-router-dom";
 import UsersTab from "../components/UsersTab";
 import OrdersTab from "../components/OrdersTab";
 import ProductsTab from "../components/ProductsTab";
+import ReviewsTab from "../components/ReviewsTab";
 
 const AdminConsole = () => {
   const { userInfo } = useSelector((state) => state.user);
@@ -48,6 +49,9 @@ const AdminConsole = () => {
               </TabPanel>
               <TabPanel>
                 <ProductsTab />
+              </TabPanel>
+              <TabPanel>
+                <ReviewsTab />
               </TabPanel>
             </TabPanels>
           </Tabs>
