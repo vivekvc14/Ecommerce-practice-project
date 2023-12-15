@@ -54,7 +54,6 @@ const Product = () => {
         isClosable: true,
       });
       dispatch(resetProductError());
-      setReviewBoxOpen(true);
     }
   }, [dispatch, productId, cart, productReviewed]);
 
@@ -84,8 +83,8 @@ const Product = () => {
     if (comment.length === 0) {
       return;
     }
-    dispatch(createReview(product._id, userInfo.id, title, comment, rating));
     setReviewBoxOpen(false);
+    dispatch(createReview(product._id, userInfo.id, title, comment, rating));
   };
 
   return (
