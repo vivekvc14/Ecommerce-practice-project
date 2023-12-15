@@ -7,7 +7,7 @@ const verifyAdmin = require("../middleware/verifyAdmin");
 
 routes.get("/", productControllers.getProducts);
 
-routes.get("/reviews", productControllers.getReviews);
+routes.get("/reviews", verifyToken, verifyAdmin, productControllers.getReviews);
 
 routes.get("/:productId", productControllers.getProduct);
 
