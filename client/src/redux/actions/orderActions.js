@@ -17,7 +17,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
     const preparedOrder = { ...order, shippingDetails: shippingAddress }
     try {
-        const { data } = await axios.post("/order", preparedOrder, {
+        const { data } = await axios.post("http://localhost:5000/order", preparedOrder, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

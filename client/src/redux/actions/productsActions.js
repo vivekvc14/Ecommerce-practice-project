@@ -12,7 +12,7 @@ import axios from "axios";
 export const getProducts = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.get("/product");
+    const { data } = await axios.get("http://localhost:5000/product");
     dispatch(setProducts(data));
   } catch (error) {
     dispatch(
@@ -30,7 +30,7 @@ export const getProducts = () => async (dispatch) => {
 export const getProduct = (id) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.get("/product/" + id);
+    const { data } = await axios.get("http://localhost:5000/product/" + id);
     dispatch(setProduct(data));
   } catch (error) {
     dispatch(
@@ -51,7 +51,7 @@ export const createReview =
     const user = JSON.parse(localStorage.getItem("userInfo"));
     try {
       const { data } = await axios.post(
-        `/product/review/${productId}`,
+        `http://localhost:5000/product/review/${productId}`,
         { userId, title, comment, rating },
         {
           headers: {

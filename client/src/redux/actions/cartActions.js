@@ -4,7 +4,7 @@ import axios from "axios"
 export const addCartItem = (id, qty) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
-        const { data } = await axios.get(`/product/${id}`)
+        const { data } = await axios.get(`http://localhost:5000/product/${id}`)
         const itemData = {
             id: data._id,
             name: data.name,

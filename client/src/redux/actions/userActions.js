@@ -3,7 +3,7 @@ import axios from "axios"
 export const login = (email, password) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
-        const { data } = await axios.post("/user/login", { email, password })
+        const { data } = await axios.post("http://localhost:5000/user/login", { email, password })
         dispatch(setLogin(data))
         localStorage.setItem("userInfo", JSON.stringify(data))
     } catch (error) {
@@ -22,7 +22,7 @@ export const register = (name, email, password) => async (dispatch) => {
     dispatch(setLoading(true))
     try {
         dispatch(setRegister())
-        await axios.post("/user/register", { name, email, password })
+        await axios.post("http://localhost:5000/user/register", { name, email, password })
     } catch (error) {
         dispatch(setError(
             error.response ? error.response.data : error.message ? error.message : "Something went wrong, please try again!"
@@ -33,7 +33,7 @@ export const register = (name, email, password) => async (dispatch) => {
 export const updateProfile = (id, name, email, password) => async (dispatch) => {
     dispatch(setLoading())
     try {
-        const { data } = await axios.put(`/user/profile/${id}`, { name, email, password }, {
+        const { data } = await axios.put(`http://localhost:5000/user/profile/${id}`, { name, email, password }, {
             headers: {
                 Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo")).token}`
             }
@@ -56,7 +56,7 @@ export const getUserOrders = () => async dispatch => {
     dispatch(setLoading())
     const user = JSON.parse(localStorage.getItem("userInfo"))
     try {
-        const { data } = await axios.get(`/order/${user.id}`, {
+        const { data } = await axios.get(`http://localhost:5000/order/${user.id}`, {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
