@@ -21,9 +21,17 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { MinusIcon, SmallAddIcon, StarIcon } from "@chakra-ui/icons";
+import {
+  DeleteIcon,
+  MinusIcon,
+  SmallAddIcon,
+  StarIcon,
+} from "@chakra-ui/icons";
 import { BiPackage, BiCheckShield, BiSupport } from "react-icons/bi";
-import { getProduct } from "../redux/actions/productsActions";
+import {
+  deleteReviewAction,
+  getProduct,
+} from "../redux/actions/productsActions";
 import { addCartItem } from "../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -85,6 +93,10 @@ const Product = () => {
     }
     setReviewBoxOpen(false);
     dispatch(createReview(product._id, userInfo.id, title, comment, rating));
+  };
+
+  const deleteReview = (productId, reviewId) => {
+    dispatch(deleteReviewAction(productId, reviewId));
   };
 
   return (
@@ -373,6 +385,20 @@ const Product = () => {
                       by {review.name},{" "}
                       {new Date(review.createdAt).toDateString()}
                     </Text>
+                    {review.user === userInfo?.id && (
+                      <Button
+                        onClick={deleteReview.bind(
+                          null,
+                          product._id,
+                          review._id
+                        )}
+                        colorScheme="red"
+                        marginY={3}
+                        gap={1}
+                      >
+                        Delete Review <DeleteIcon />
+                      </Button>
+                    )}
                   </Box>
                 ))}
               </SimpleGrid>
