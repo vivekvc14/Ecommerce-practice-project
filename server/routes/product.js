@@ -14,6 +14,12 @@ routes.get("/:productId", productControllers.getProduct);
 routes.post("/review/:productId", verifyToken, productControllers.createReview);
 
 routes.delete(
+  "/review-delete",
+  verifyToken,
+  productControllers.reviewDeleteByUser
+);
+
+routes.delete(
   "/:productId/:reviewId",
   verifyToken,
   verifyAdmin,

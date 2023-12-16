@@ -163,3 +163,37 @@ exports.getReviews = async (req, res) => {
     res.status(500).json("Something went wrong, please try again.");
   }
 };
+
+exports.reviewDeleteByUser = async (req, res) => {
+  try {
+    const { productId, reviewId } = req.body;
+    const product = await Product.findById(productId);
+    if (product) {
+      const updatedReviews = product.reviews.filter((review) => {
+        if (review.user.toString() === req.user._id.toString()) {
+          review._id.toString() !== reviewId.toString();
+        } else {
+          return res.status(402).json("You can't delete this review!");
+        }
+      });
+      product.reviews = updatedReviews;
+      product.numberOfReviews = product.reviews.length;
+
+      if (product.numberOfReviews > 0) {
+        product.rating =
+          product.reviews.reduce((item, acc) => (item.rating += acc), 0) /
+          product.reviews.length;
+        product.numberOfReviews -= 1;
+      } else {
+        product.rating = 0;
+      }
+
+      await product.save();
+      return res.json("Review has been removed.");
+    } else {
+      return res.status(404).json("Product not found.");
+    }
+  } catch (error) {
+    res.status(500).json("Something went wrong, please try again.");
+  }
+};
