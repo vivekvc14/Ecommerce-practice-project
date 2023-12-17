@@ -35,6 +35,7 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.productReviewed = true;
+      state.reviewRemoval = false;
     },
     setProductUpdate: (state) => {
       state.loading = false;
@@ -55,9 +56,8 @@ const productsSlice = createSlice({
     },
     deleteReview: (state, { payload }) => {
       state.loading = false;
-      state.product.reviews = state.reviews.filter(
-        (review) => review._id !== payload
-      );
+      state.product = payload;
+      state.reviewRemoval = true;
       state.error = null;
     },
   },

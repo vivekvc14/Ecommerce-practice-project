@@ -80,18 +80,16 @@ export const resetProductError = () => (dispatch) => {
 export const deleteReviewAction = (productId, reviewId) => async (dispatch) => {
   dispatch(setLoading());
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  console.log(user, "user");
   try {
-    await axios.delete(
-      `http://localhost:5000/product/review-delete`,
-      { reviewId, productId },
+    const { data } = await axios.delete(
+      `http://localhost:5000/product/review-delete/${productId}/${reviewId}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       }
     );
-    dispatch(deleteReview(reviewId));
+    dispatch(deleteReview(data));
   } catch (error) {
     dispatch(
       setError(

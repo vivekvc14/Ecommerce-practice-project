@@ -48,7 +48,7 @@ const Product = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  const { loading, error, product, productReviewed } = products;
+  const { loading, error, product, productReviewed, reviewRemoval } = products;
   const { cart } = useSelector((state) => state.cart);
   const toast = useToast();
 
@@ -57,13 +57,20 @@ const Product = () => {
 
     if (productReviewed) {
       toast({
-        description: "Product review saved.",
+        description: "Product reviewed.",
         status: "success",
         isClosable: true,
       });
       dispatch(resetProductError());
     }
-  }, [dispatch, productId, cart, productReviewed]);
+    if(reviewRemoval) {
+      toast({
+        description: "Review Deleted.",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  }, [dispatch, productId, cart, productReviewed, reviewRemoval]);
 
   const changeAmount = (input) => {
     if (input === "plus") {

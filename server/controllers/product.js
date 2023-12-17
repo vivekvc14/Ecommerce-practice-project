@@ -166,19 +166,15 @@ exports.getReviews = async (req, res) => {
 
 exports.reviewDeleteByUser = async (req, res) => {
   try {
-    const { productId, reviewId } = req.body;
+    const { productId, reviewId } = req.params;
     const product = await Product.findById(productId);
     if (product) {
-      const updatedReviews = product.reviews.filter((review) => {
+      product.reviews = product?.reviews?.filter((review) => {
         if (review.user.toString() === req.user._id.toString()) {
-          review._id.toString() !== reviewId.toString();
-        } else {
-          return res.status(402).json("You can't delete this review!");
+          return review._id.toString() !== reviewId.toString();
         }
       });
-      product.reviews = updatedReviews;
       product.numberOfReviews = product.reviews.length;
-
       if (product.numberOfReviews > 0) {
         product.rating =
           product.reviews.reduce((item, acc) => (item.rating += acc), 0) /
@@ -187,9 +183,8 @@ exports.reviewDeleteByUser = async (req, res) => {
       } else {
         product.rating = 0;
       }
-
       await product.save();
-      return res.json("Review has been removed.");
+      return res.json(product);
     } else {
       return res.status(404).json("Product not found.");
     }
