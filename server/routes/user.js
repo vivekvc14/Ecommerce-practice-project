@@ -11,6 +11,8 @@ routes.post("/register", [
     body("password").isLength({ min: 8, max: 20 }).withMessage("Password should contain between 8 to 20 characters."),
 ], userControllers.registerUser)
 
+routes.delete("/user-delete/:userId", verifyToken, userControllers.deleteUser)
+
 routes.post("/login", userControllers.loginUser)
 
 routes.put("/profile/:userId", verifyToken, userControllers.updateUser)
