@@ -18,11 +18,14 @@ const CartOrderSummary = () => {
   const cartItems = useSelector((state) => state.cart);
   const { subTotal } = cartItems;
   const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.user);
 
   const checkoutHandler = () => {
+    if (!userInfo) return navigate("/login");
     setButtonLoading(false);
     navigate("/checkout");
   };
+
   return (
     <Stack w="full" borderWidth="1px" spacing={8} rounded={"lg"} padding={8}>
       <Heading size={"md"}>Order Summary</Heading>

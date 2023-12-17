@@ -1,5 +1,5 @@
-import { ChakraProvider } from "@chakra-ui/react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { ChakraProvider } from "@chakra-ui/react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
@@ -8,15 +8,16 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile, { loader as profileLoader } from "./pages/Profile";
-import Checkout from "./pages/Checkout";
+import Checkout, { loader as checkoutLoader } from "./pages/Checkout";
 import YourOrders from "./pages/YourOrders";
 import AdminConsole, { loader as adminLoader } from "./pages/AdminConsole";
 
 function App() {
-
   const router = createBrowserRouter([
     {
-      path: "/", element: <Root />, children: [
+      path: "/",
+      element: <Root />,
+      children: [
         { index: true, element: <Landing /> },
         { path: "products", element: <Products /> },
         { path: "product/:productId", element: <Product /> },
@@ -24,12 +25,16 @@ function App() {
         { path: "login", element: <Login /> },
         { path: "registration", element: <Register /> },
         { path: "profile", element: <Profile />, loader: profileLoader },
-        { path: "checkout", element: <Checkout /> },
+        { path: "checkout", element: <Checkout />, loader: checkoutLoader },
         { path: "your-orders", element: <YourOrders /> },
-        { path: "admin-console", element: <AdminConsole />, loader: adminLoader }
-      ]
-    }
-  ])
+        {
+          path: "admin-console",
+          element: <AdminConsole />,
+          loader: adminLoader,
+        },
+      ],
+    },
+  ]);
 
   return (
     <ChakraProvider>
