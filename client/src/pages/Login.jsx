@@ -20,7 +20,6 @@ import {
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
-import PasswordTextField from "../components/PasswordTextField";
 import { login, resetUpdateSuccess } from "../redux/actions/userActions";
 
 const Login = () => {
@@ -121,7 +120,7 @@ const Login = () => {
                       placeholder="Your Email"
                       label="Email"
                     />
-                    <PasswordTextField
+                    <TextField
                       name="password"
                       type="password"
                       placeholder="Your Password"

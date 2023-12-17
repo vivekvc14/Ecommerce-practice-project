@@ -19,7 +19,6 @@ import {
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
-import PasswordTextField from "../components/PasswordTextField";
 import { register, resetUpdateSuccess } from "../redux/actions/userActions";
 import { useEffect } from "react";
 
@@ -125,13 +124,13 @@ const Register = () => {
                       placeholder="Your Email"
                       label="Email"
                     />
-                    <PasswordTextField
+                    <TextField
                       name="password"
                       type="password"
                       placeholder="Your Password"
                       label="Password"
                     />
-                    <PasswordTextField
+                    <TextField
                       name="confirmPassword"
                       type="password"
                       placeholder="Confirm Password"
