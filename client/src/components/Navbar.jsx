@@ -25,11 +25,12 @@ import {
   SunIcon,
   MoonIcon,
   ChevronDownIcon,
+  DeleteIcon,
 } from "@chakra-ui/icons";
 import { GiTechnoHeart } from "react-icons/gi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/actions/userActions";
+import { logout, deleteUserAction } from "../redux/actions/userActions";
 import { CgProfile } from "react-icons/cg";
 import {
   MdAdminPanelSettings,
@@ -76,7 +77,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const [isHovering, setIsHovering] = useState(false);
-  const { userInfo } = useSelector((state) => state.user);
+  const { userInfo, accountDeleted } = useSelector((state) => state.user);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -86,6 +87,20 @@ const Navbar = () => {
       isClosable: true,
     });
   };
+
+  const deleteAccountHandler = () => {
+    dispatch(deleteUserAction(userInfo.id));
+  };
+
+  useEffect(() => {
+    if (accountDeleted) {
+      toast({
+        description: "You just deleted your account!",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  }, [accountDeleted]);
 
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -162,6 +177,10 @@ const Navbar = () => {
                 <MenuItem onClick={logoutHandler}>
                   <MdLogout />
                   <Text ml={2}>Logout</Text>
+                </MenuItem>
+                <MenuItem color="red.400" onClick={deleteAccountHandler}>
+                  <DeleteIcon />
+                  <Text ml={2}>Delete Account</Text>
                 </MenuItem>
               </MenuList>
             </Menu>
