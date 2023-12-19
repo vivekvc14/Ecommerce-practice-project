@@ -20,7 +20,7 @@ export const getUsers = () => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    const { data } = await axios.get("http://localhost:5000/user", {
+    const { data } = await axios.get("https://techommerce-backend.onrender.com/user", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -43,7 +43,7 @@ export const deleteUser = (userId) => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    await axios.delete(`http://localhost:5000/user/${userId}`, {
+    await axios.delete(`https://techommerce-backend.onrender.com/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +66,7 @@ export const getAllOrders = () => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    const { data } = await axios.get("http://localhost:5000/order", {
+    const { data } = await axios.get("https://techommerce-backend.onrender.com/order", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -89,7 +89,7 @@ export const deleteOrder = (orderId) => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    await axios.delete(`http://localhost:5000/order/${orderId}`, {
+    await axios.delete(`https://techommerce-backend.onrender.com/order/${orderId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -113,7 +113,7 @@ export const setOrderDelivered = (orderId) => async (dispatch) => {
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
     await axios.put(
-      `http://localhost:5000/order/${orderId}`,
+      `https://techommerce-backend.onrender.com/order/${orderId}`,
       {},
       {
         headers: {
@@ -140,7 +140,7 @@ export const createProduct = (productData) => async (dispatch) => {
 
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    const { data } = await axios.post(`http://localhost:5000/product`, productData, {
+    const { data } = await axios.post(`https://techommerce-backend.onrender.com/product`, productData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -166,7 +166,7 @@ export const updateProduct =
     dispatch(setLoading());
     const token = JSON.parse(localStorage.getItem("userInfo")).token;
     try {
-      const { data } = await axios.put(`http://localhost:5000/product/${productId}`, productData, {
+      const { data } = await axios.put(`https://techommerce-backend.onrender.com/product/${productId}`, productData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -191,7 +191,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    await axios.delete(`http://localhost:5000/product/${productId}`, {
+    await axios.delete(`https://techommerce-backend.onrender.com/product/${productId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -215,7 +215,7 @@ export const removeReview = (productId, reviewId) => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    await axios.delete(`http://localhost:5000/product/${productId}/${reviewId}`, {
+    await axios.delete(`https://techommerce-backend.onrender.com/product/${productId}/${reviewId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -238,7 +238,7 @@ export const getReviewsAction = () => async (dispatch) => {
   dispatch(setLoading());
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   try {
-    const { data } = await axios.get(`http://localhost:5000/product/reviews`, {
+    const { data } = await axios.get(`https://techommerce-backend.onrender.com/product/reviews`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -13,7 +13,7 @@ import axios from "axios";
 export const login = (email, password) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.post("http://localhost:5000/user/login", {
+    const { data } = await axios.post("https://techommerce-backend.onrender.com/user/login", {
       email,
       password,
     });
@@ -41,7 +41,7 @@ export const register = (name, email, password) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     dispatch(setRegister());
-    await axios.post("http://localhost:5000/user/register", {
+    await axios.post("https://techommerce-backend.onrender.com/user/register", {
       name,
       email,
       password,
@@ -64,7 +64,7 @@ export const updateProfile =
     dispatch(setLoading());
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/user/profile/${id}`,
+        `https://techommerce-backend.onrender.com/user/profile/${id}`,
         { name, email, password },
         {
           headers: {
@@ -98,7 +98,7 @@ export const getUserOrders = () => async (dispatch) => {
   dispatch(setLoading());
   const user = JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await axios.get(`http://localhost:5000/order/${user.id}`, {
+    const { data } = await axios.get(`https://techommerce-backend.onrender.com/order/${user.id}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -121,7 +121,7 @@ export const deleteUserAction = (userId) => async (dispatch) => {
   dispatch(setLoading());
   const user = JSON.parse(localStorage.getItem("userInfo"));
   try {
-    await axios.delete(`http://localhost:5000/user/user-delete/${userId}`, {
+    await axios.delete(`https://techommerce-backend.onrender.com/user/user-delete/${userId}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },

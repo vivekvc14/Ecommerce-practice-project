@@ -12,7 +12,7 @@ import axios from "axios";
 export const getProducts = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.get("http://localhost:5000/product");
+    const { data } = await axios.get("https://techommerce-backend.onrender.com/product");
     dispatch(setProducts(data));
   } catch (error) {
     dispatch(
@@ -30,7 +30,7 @@ export const getProducts = () => async (dispatch) => {
 export const getProduct = (id) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.get("http://localhost:5000/product/" + id);
+    const { data } = await axios.get("https://techommerce-backend.onrender.com/product/" + id);
     dispatch(setProduct(data));
   } catch (error) {
     dispatch(
@@ -51,7 +51,7 @@ export const createReview =
     const user = JSON.parse(localStorage.getItem("userInfo"));
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/product/review/${productId}`,
+        `https://techommerce-backend.onrender.com/product/review/${productId}`,
         { userId, title, comment, rating },
         {
           headers: {
@@ -82,7 +82,7 @@ export const deleteReviewAction = (productId, reviewId) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
   try {
     const { data } = await axios.delete(
-      `http://localhost:5000/product/review-delete/${productId}/${reviewId}`,
+      `https://techommerce-backend.onrender.com/product/review-delete/${productId}/${reviewId}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
