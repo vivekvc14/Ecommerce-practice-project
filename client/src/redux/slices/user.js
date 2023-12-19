@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   error: null,
-  userInfo: JSON.parse(localStorage.getItem("userInfo")) ?? null,
+  userInfo: JSON.parse(localStorage.getItem("techCommerceUser")) ?? null,
   updateSuccess: false,
   orders: [],
   accountDeleted: false,
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.userInfo = null;
       state.accountDeleted = true;
-      localStorage.removeItem("userInfo");
+      localStorage.removeItem("techCommerceUser");
     },
     setError: (state, { payload }) => {
       state.loading = false;

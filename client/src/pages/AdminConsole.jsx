@@ -68,7 +68,7 @@ const AdminConsole = () => {
 export default AdminConsole;
 
 export const loader = () => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("techCommerceUser"));
   if (!userInfo) {
     return redirect("/login");
   }

@@ -50,7 +50,7 @@ const Checkout = () => {
 export default Checkout;
 
 export const loader = () => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage.getItem("techCommerceUser"));
   if (!userInfo) {
     return redirect("/login");
   }

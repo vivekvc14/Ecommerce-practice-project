@@ -18,7 +18,7 @@ export const login = (email, password) => async (dispatch) => {
       password,
     });
     dispatch(setLogin(data));
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("techCommerceUser", JSON.stringify(data));
   } catch (error) {
     dispatch(
       setError(
@@ -34,7 +34,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch(setLogout());
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem("techCommerceUser");
 };
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -69,13 +69,13 @@ export const updateProfile =
         {
           headers: {
             Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("userInfo")).token
+              JSON.parse(localStorage.getItem("techCommerceUser")).token
             }`,
           },
         }
       );
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("techCommerceUser", JSON.stringify(data));
       dispatch(updateUserProfile(data));
     } catch (error) {
       dispatch(
@@ -96,7 +96,7 @@ export const resetUpdateSuccess = () => (dispatch) => {
 
 export const getUserOrders = () => async (dispatch) => {
   dispatch(setLoading());
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const user = JSON.parse(localStorage.getItem("techCommerceUser"));
   try {
     const { data } = await axios.get(`https://techommerce-backend.onrender.com/order/${user.id}`, {
       headers: {
@@ -119,7 +119,7 @@ export const getUserOrders = () => async (dispatch) => {
 
 export const deleteUserAction = (userId) => async (dispatch) => {
   dispatch(setLoading());
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const user = JSON.parse(localStorage.getItem("techCommerceUser"));
   try {
     await axios.delete(`https://techommerce-backend.onrender.com/user/user-delete/${userId}`, {
       headers: {

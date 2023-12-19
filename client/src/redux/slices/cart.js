@@ -11,14 +11,14 @@ const calculateSubTotal = (cart) => {
 const initialState = {
     loading: false,
     error: null,
-    cart: JSON.parse(localStorage.getItem("cartItems")) || [],
-    subTotal: JSON.parse(localStorage.getItem("subTotal")) || 0,
-    expressShipping: JSON.parse(localStorage.getItem("expressShipping")) || false
+    cart: JSON.parse(localStorage.getItem("techCommerceUser")) || [],
+    subTotal: JSON.parse(localStorage.getItem("techCommerceSubTotal")) || 0,
+    expressShipping: JSON.parse(localStorage.getItem("techCommerceExpressShipping")) || false
 }
 
 const updateLocalStorage = (cart, subTotal) => {
-    localStorage.setItem("cartItems", JSON.stringify(cart))
-    localStorage.setItem("subTotal", JSON.stringify(subTotal))
+    localStorage.setItem("techCommerceCartItems", JSON.stringify(cart))
+    localStorage.setItem("techCommerceSubTotal", JSON.stringify(subTotal))
 }
 
 const cartSlice = createSlice({
@@ -53,10 +53,10 @@ const cartSlice = createSlice({
         },
         setExpressShipping: (state, { payload }) => {
             state.expressShipping = payload;
-            localStorage.setItem("expressShipping", JSON.stringify(payload))
+            localStorage.setItem("techCommerceExpressShipping", JSON.stringify(payload))
         },
         clearCart: (state) => {
-            localStorage.removeItem("cartItems")
+            localStorage.removeItem("techCommerceCartItems")
             state.cart = []
         }
     }

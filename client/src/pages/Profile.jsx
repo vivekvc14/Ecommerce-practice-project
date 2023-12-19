@@ -193,7 +193,7 @@ const Profile = () => {
 export default Profile;
 
 export const loader = () => {
-  const isUser = JSON.parse(localStorage.getItem("userInfo"));
+  const isUser = JSON.parse(localStorage.getItem("techCommerceUser"));
   if (!isUser) {
     return redirect("/login");
   }

@@ -18,7 +18,7 @@ import {
 
 export const getUsers = () => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     const { data } = await axios.get("https://techommerce-backend.onrender.com/user", {
       headers: {
@@ -41,7 +41,7 @@ export const getUsers = () => async (dispatch) => {
 
 export const deleteUser = (userId) => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     await axios.delete(`https://techommerce-backend.onrender.com/user/${userId}`, {
       headers: {
@@ -64,7 +64,7 @@ export const deleteUser = (userId) => async (dispatch) => {
 
 export const getAllOrders = () => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     const { data } = await axios.get("https://techommerce-backend.onrender.com/order", {
       headers: {
@@ -87,7 +87,7 @@ export const getAllOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId) => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     await axios.delete(`https://techommerce-backend.onrender.com/order/${orderId}`, {
       headers: {
@@ -110,7 +110,7 @@ export const deleteOrder = (orderId) => async (dispatch) => {
 
 export const setOrderDelivered = (orderId) => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     await axios.put(
       `https://techommerce-backend.onrender.com/order/${orderId}`,
@@ -138,7 +138,7 @@ export const setOrderDelivered = (orderId) => async (dispatch) => {
 export const createProduct = (productData) => async (dispatch) => {
   dispatch(setLoading());
 
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     const { data } = await axios.post(`https://techommerce-backend.onrender.com/product`, productData, {
       headers: {
@@ -164,7 +164,7 @@ export const createProduct = (productData) => async (dispatch) => {
 export const updateProduct =
   (productData, productId) => async (dispatch, getState) => {
     dispatch(setLoading());
-    const token = JSON.parse(localStorage.getItem("userInfo")).token;
+    const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
     try {
       const { data } = await axios.put(`https://techommerce-backend.onrender.com/product/${productId}`, productData, {
         headers: {
@@ -189,7 +189,7 @@ export const updateProduct =
 
 export const deleteProduct = (productId) => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     await axios.delete(`https://techommerce-backend.onrender.com/product/${productId}`, {
       headers: {
@@ -213,7 +213,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
 
 export const removeReview = (productId, reviewId) => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     await axios.delete(`https://techommerce-backend.onrender.com/product/${productId}/${reviewId}`, {
       headers: {
@@ -236,7 +236,7 @@ export const removeReview = (productId, reviewId) => async (dispatch) => {
 
 export const getReviewsAction = () => async (dispatch) => {
   dispatch(setLoading());
-  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const token = JSON.parse(localStorage.getItem("techCommerceUser")).token;
   try {
     const { data } = await axios.get(`https://techommerce-backend.onrender.com/product/reviews`, {
       headers: {

@@ -48,7 +48,7 @@ export const getProduct = (id) => async (dispatch) => {
 export const createReview =
   (productId, userId, title, comment, rating) => async (dispatch) => {
     dispatch(setLoading());
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const user = JSON.parse(localStorage.getItem("techCommerceUser"));
     try {
       const { data } = await axios.post(
         `https://techommerce-backend.onrender.com/product/review/${productId}`,
@@ -79,7 +79,7 @@ export const resetProductError = () => (dispatch) => {
 
 export const deleteReviewAction = (productId, reviewId) => async (dispatch) => {
   dispatch(setLoading());
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const user = JSON.parse(localStorage.getItem("techCommerceUser"));
   try {
     const { data } = await axios.delete(
       `https://techommerce-backend.onrender.com/product/review-delete/${productId}/${reviewId}`,

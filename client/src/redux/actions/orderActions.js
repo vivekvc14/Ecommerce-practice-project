@@ -10,7 +10,7 @@ export const setShippingAddressError = (error) => dispatch => {
 }
 
 export const createOrder = (order) => async (dispatch, getState) => {
-    const token = JSON.parse(localStorage.getItem("userInfo")).token
+    const token = JSON.parse(localStorage.getItem("techCommerceUser")).token
     const {
         order: { shippingAddress }
     } = getState()
