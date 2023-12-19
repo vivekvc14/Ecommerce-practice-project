@@ -17,7 +17,7 @@ function App() {
     {
       path: "/",
       element: <Root />,
-      errorElement: <Landing />,
+      errorElement: <Root />,
       children: [
         { index: true, element: <Landing /> },
         { path: "products", element: <Products /> },
