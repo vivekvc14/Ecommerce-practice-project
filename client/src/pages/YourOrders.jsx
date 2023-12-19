@@ -82,7 +82,6 @@ const YourOrders = () => {
                       ${order.totalPrice} via {order.paymentMethod}
                     </Td>
                     <Td>
-                      {console.log(order.orderItems)}
                       {order.orderItems.map((item) => (
                         <UnorderedList key={item._id}>
                           <ListItem>

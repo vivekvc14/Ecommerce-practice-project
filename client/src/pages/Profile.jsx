@@ -33,7 +33,6 @@ const Profile = () => {
   const toast = useToast();
   const user = useSelector((state) => state.user);
   const { userInfo, error, loading, updateSuccess } = user;
-  console.log(loading, "LOADING");
 
   useEffect(() => {
     if (!userInfo) {
