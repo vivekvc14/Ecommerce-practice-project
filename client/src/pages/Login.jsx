@@ -20,7 +20,11 @@ import {
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
-import { login, resetUpdateSuccess } from "../redux/actions/userActions";
+import {
+  login,
+  resetLoginAction,
+  resetUpdateSuccess,
+} from "../redux/actions/userActions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -49,6 +53,7 @@ const Login = () => {
   useEffect(() => {
     if (!userInfo) {
       dispatch(resetUpdateSuccess());
+      dispatch(resetLoginAction());
     }
   }, [userInfo]);
 

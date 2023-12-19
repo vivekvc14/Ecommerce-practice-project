@@ -7,6 +7,7 @@ const initialState = {
   updateSuccess: false,
   orders: [],
   accountDeleted: false,
+  validRegister: false,
 };
 
 const userSlice = createSlice({
@@ -22,11 +23,13 @@ const userSlice = createSlice({
       state.error = null;
       state.updateSuccess = false;
       state.accountDeleted = false;
+      state.validRegister = false;
     },
     setRegister: (state) => {
       state.loading = false;
       state.error = null;
       state.accountDeleted = false;
+      state.validRegister = true;
     },
     updateUserProfile: (state, { payload }) => {
       state.userInfo = payload;
@@ -38,12 +41,14 @@ const userSlice = createSlice({
       state.updateSuccess = false;
       state.loading = false;
       state.error = null;
+      state.validRegister = false;
     },
     setLogout: (state) => {
       state.updateSuccess = false;
       state.loading = false;
       state.userInfo = null;
       state.error = null;
+      state.validRegister = false;
     },
     setUserOrders: (state, { payload }) => {
       state.loading = false;
@@ -54,10 +59,18 @@ const userSlice = createSlice({
       state.loading = false;
       state.userInfo = null;
       state.accountDeleted = true;
+      state.validRegister = false;
       localStorage.removeItem("techCommerceUser");
+    },
+    resetLogin: (state) => {
+      state.loading = false;
+      state.userInfo = null;
+      state.validRegister = false;
+      state.error = null;
     },
     setError: (state, { payload }) => {
       state.loading = false;
+      state.validRegister = false;
       state.error = payload;
     },
   },
@@ -73,6 +86,7 @@ export const {
   resetUpdate,
   setUserOrders,
   setDeleteAccount,
+  resetLogin,
 } = userSlice.actions;
 export default userSlice.reducer;
 export const userSelector = (state) => state.user;

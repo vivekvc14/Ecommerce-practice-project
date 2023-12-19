@@ -8,15 +8,19 @@ import {
   updateUserProfile,
   setUserOrders,
   setDeleteAccount,
+  resetLogin,
 } from "../slices/user";
 import axios from "axios";
 export const login = (email, password) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await axios.post("https://techommerce-backend.onrender.com/user/login", {
-      email,
-      password,
-    });
+    const { data } = await axios.post(
+      "https://techommerce-backend.onrender.com/user/login",
+      {
+        email,
+        password,
+      }
+    );
     dispatch(setLogin(data));
     localStorage.setItem("techCommerceUser", JSON.stringify(data));
   } catch (error) {
@@ -38,14 +42,14 @@ export const logout = () => (dispatch) => {
 };
 
 export const register = (name, email, password) => async (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(setLoading());
   try {
-    dispatch(setRegister());
     await axios.post("https://techommerce-backend.onrender.com/user/register", {
       name,
       email,
       password,
     });
+    dispatch(setRegister());
   } catch (error) {
     dispatch(
       setError(
@@ -98,11 +102,14 @@ export const getUserOrders = () => async (dispatch) => {
   dispatch(setLoading());
   const user = JSON.parse(localStorage.getItem("techCommerceUser"));
   try {
-    const { data } = await axios.get(`https://techommerce-backend.onrender.com/order/${user.id}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const { data } = await axios.get(
+      `https://techommerce-backend.onrender.com/order/${user.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     dispatch(setUserOrders(data));
   } catch (error) {
     dispatch(
@@ -121,11 +128,14 @@ export const deleteUserAction = (userId) => async (dispatch) => {
   dispatch(setLoading());
   const user = JSON.parse(localStorage.getItem("techCommerceUser"));
   try {
-    await axios.delete(`https://techommerce-backend.onrender.com/user/user-delete/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    await axios.delete(
+      `https://techommerce-backend.onrender.com/user/user-delete/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     dispatch(setDeleteAccount());
   } catch (error) {
     dispatch(
@@ -138,4 +148,8 @@ export const deleteUserAction = (userId) => async (dispatch) => {
       )
     );
   }
+};
+
+export const resetLoginAction = () => (dispatch) => {
+  dispatch(resetLogin());
 };

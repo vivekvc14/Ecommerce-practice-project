@@ -20,15 +20,21 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "../components/TextField";
 import { register, resetUpdateSuccess } from "../redux/actions/userActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
   const headingBR = useBreakpointValue({ base: "xs", md: "sm" });
   const boxBR = useBreakpointValue({ base: "transparent", md: "bg-surface" });
-  const { loading, error, userInfo } = useSelector((state) => state.user);
+  const {
+    loading,
+    error: registerError,
+    userInfo,
+    validRegister,
+  } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const toast = useToast();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!userInfo) {
@@ -38,6 +44,26 @@ const Register = () => {
       navigate("/");
     }
   }, [userInfo]);
+
+  useEffect(() => {
+    if (validRegister) {
+      navigate("/login");
+      toast({
+        description: "Account created successfully!",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  }, [validRegister]);
+
+  useEffect(() => {
+    if (registerError) {
+      setError(registerError);
+    }
+    if (!registerError) {
+      setError(null);
+    }
+  }, [registerError]);
 
   return (
     <Formik
@@ -57,12 +83,6 @@ const Register = () => {
       })}
       onSubmit={(values) => {
         dispatch(register(values.name, values.email, values.password));
-        navigate("/login");
-        toast({
-          description: "Account created successfully!",
-          status: "success",
-          isClosable: true,
-        });
       }}
     >
       {(formik) => (
