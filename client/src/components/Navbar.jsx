@@ -223,12 +223,16 @@ const Navbar = () => {
                 {link.linkName}
               </ReactLink>
             ))}
-            <ReactLink key={"sign up"} path={"/registration"}>
-              Sign Up
-            </ReactLink>
-            <ReactLink key={"sign up"} path={"/login"}>
-              Sign In
-            </ReactLink>
+            {!userInfo && (
+              <>
+                <ReactLink key={"sign up"} path={"/registration"}>
+                  Sign Up
+                </ReactLink>
+                <ReactLink key={"sign up"} path={"/login"}>
+                  Sign In
+                </ReactLink>
+              </>
+            )}
           </Stack>
         </Box>
       ) : null}
